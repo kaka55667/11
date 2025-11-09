@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山海经 - 华夏神话典籍</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c7873;
+            --secondary-color: #6fb98f;
+            --accent-color: #ff9a76;
+            --light-color: #f8f5f1;
+            --dark-color: #2c3e50;
+            --text-color: #4a4a4a;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: "SimSun", "宋体", serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(108, 185, 143, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(44, 120, 115, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 水墨背景 */
+        .ink-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(44, 120, 115, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(108, 185, 143, 0.2) 0%, transparent 40%);
+        }
+
+        /* 头部样式 */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark-color);
+            padding: 20px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-family: "STXingkai", "华文行楷", cursive;
+            font-size: 2.5rem;
+            margin-left: 15px;
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            font-size: 2.8rem;
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        nav a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 245, 241, 0.9) 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f5f1"/></svg>');
+            color: var(--dark-color);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(108, 185, 143, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(44, 120, 115, 0.05) 0%, transparent 50%);
+        }
+
+        .hero h2 {
+            font-family: "STXingkai", "华文行楷", cursive;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text-color);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(44, 120, 115, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 120, 115, 0.4);
+        }
+
+        /* 内容亮点区域 - 优化后 */
+        .highlights {
+            padding: 80px 0;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .highlights .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .highlights .section-title h2 {
+            font-family: "STXingkai", "华文行楷", cursive;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+            padding: 0 20px;
+            background: var(--light-color);
+        }
+
+        .highlights .section-title::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+            z-index: -1;
+        }
+
+        .highlights .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .highlights .highlight-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .highlights .highlight-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .highlights .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+            background: rgba(108, 185, 143, 0.05);
+        }
+
+        .highlights .highlight-card .highlight-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .highlights .highlight-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .highlights .highlight-card p {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* 内容区域 */
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: "STXingkai", "华文行楷", cursive;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+            padding: 0 20px;
+            background: var(--light-color);
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+            z-index: -1;
+        }
+
+        /* 卡片布局 */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-img {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), transparent);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .card-link {
+            display: inline-block;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        /* 关于页面样式 */
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-section {
+            margin-bottom: 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .about-section h3 {
+            font-family: "STXingkai", "华文行楷", cursive;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .about-section p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-indent: 2em;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .about-feature {
+            background: rgba(108, 185, 143, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .about-feature h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            width: 50%;
+            padding: 0 40px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content .date {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            nav li {
+                margin: 0 10px 10px;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .highlights .highlight-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 页面切换动画 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 主要角色部分样式 */
+        .main-characters {
+            padding: 40px 0;
+            /* background-color: #f5f5f5; */
+        }
+
+        .main-characters .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .main-characters .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-characters .section-title h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .main-characters .section-title p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .main-characters .character-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            gap: 40px;
+        }
+
+        .main-characters .character-detail.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .main-characters .character-image {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .main-characters .character-image img {
+            width: 100%;
+            height: auto;
+            transition: 0.5s all;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-characters .character-image img:hover {
+            transform: scale(0.5) rotate(45deg);
+            /* background: rgba(200, 166, 104, 0.1); */
+        }
+
+
+
+        .main-characters .character-info {
+            flex: 1;
+        }
+
+        .main-characters .character-info h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .main-characters .character-meta {
+            margin-bottom: 20px;
+        }
+
+        .main-characters .character-meta span {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .main-characters .character-info p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+    </style>
+</head>
+
+<body>
+    <!-- 水墨背景 -->
+    <div class="ink-bg"></div>
+
+    <!-- 头部 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">⛰️</div>
+                    <h1>山海经</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="home">首页</a></li>
+                        <li><a href="#" class="nav-link" data-page="beasts">神兽志</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页 -->
+    <section id="home" class="page active">
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="container">
+                <h2>华夏神话典籍</h2>
+                <p>《山海经》是中国先秦重要古籍，也是一部富于神话传说的最古老的奇书。探寻华夏神话之源，感受千年文化魅力。</p>
+                <a href="#" class="cta-button nav-link" data-page="beasts">开始探索</a>
+            </div>
+        </section>
+
+        <!-- 内容亮点 - 优化后 -->
+        <section class="highlights">
+            <div class="section-title">
+                <h2>内容亮点</h2>
+                <p>探索中国古代神话的奇幻世界</p>
+            </div>
+
+            <div class="highlight-cards">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>奇异神兽</h3>
+                    <p>记载了数百种奇珍异兽，如九尾狐、应龙、凤凰、麒麟等，每种都有独特的外形特征和神奇能力。</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>神话地理</h3>
+                    <p>描绘了上古时期的神山、圣水、仙境和异域，构建了一个充满想象力的神话地理体系。</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>文化传承</h3>
+                    <p>蕴含丰富的古代神话、巫术、医药和民俗知识，是研究中国古代文化的重要宝库。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 精选神兽 -->
+        <section class="content-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>山海经神兽</h2>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-05pEJmZvFhHT8nsK-kq2xAwdnRt1gACZRwAAl5riVRcsGrBGO-qhzYE.jpg" alt="应龙.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>应龙</h3>
+                            <p>应龙是古代中国神话传说中一种有翼的龙，相传禹治洪水时有应龙以尾画地成江河使水入海。</p>
+                            <a href="#" class="card-link nav-link" data-page="yinglong">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-0lpEJkYw0dsLAxkOjSTyTRWlirLOQACYBwAAl5riVQG_bQY9l1p3zYE.jpg" alt="九尾狐.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>九尾狐</h3>
+                            <p>九尾狐在先秦时期曾被视为瑞兽，但随着时间的推移，其形象逐渐妖化，后世文学作品常将其描绘为妖媚动人、善于蛊惑的妖兽。</p>
+                            <a href="#" class="card-link nav-link" data-page="fenghuang">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-1ZpEJnNmhmzOD8xTQyb3cS74IDYawACbhwAAl5riVQJINFW0KrGrzYE.jpg" alt="白虎.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>白虎</h3>
+                            <p>白虎是中国古代神话中的天之四灵之一，源于远古星宿崇拜，是代表少昊与西方七宿的西方之神。</p>
+                            <a href="#" class="card-link nav-link" data-page="baihu">了解更多 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- 神兽志页面 -->
+
+    <!-- 主要角色 -->
+    <section class="main-characters">
+        <div class="container">
+            <div class="section-title">
+                <h2>主要角色</h2>
+                <p>游戏中登场的核心角色</p>
+            </div>
+
+            <div class="character-detail">
+                <div class="character-image">
+                    <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-0lpEJkYw0dsLAxkOjSTyTRWlirLOQACYBwAAl5riVQG_bQY9l1p3zYE.jpg" alt="九尾狐.jpg" />
+                </div>
+                <div class="character-info">
+                    <h3>九尾狐</h3>
+                    <div class="character-meta">
+                        <span><strong>出处:</strong> 《山海经·南山经》</span>
+                        <span><strong>特征:</strong> 九尾、声如婴儿</span>
+                        <span><strong>能力:</strong> 魅惑、变化</span>
+                        <span><strong>象征:</strong> 祥瑞与妖异并存</span>
+                    </div>
+                    <p>九尾狐是中国古代神话传说中的神异动物，也是中国古代神话中的生物，常用来象征祥瑞。出自春秋战国时期编纂的《山海经》，而后传至汉字文化圈日本、朝鲜、越南等东亚国家。</p>
+                    <p>《山海经》云："青丘之山，有兽焉，其状如狐而九尾，其音如婴儿，能食人，食者不蛊。"九尾狐形象最基本的特点就是"九尾"，传说世平则出为瑞也。《瑞应图谱》中说："王者不倾于色，则九尾狐至焉"。而《宋书·符瑞志》则说："白狐，王者仁智则至"。
+                    </p>
+                    <p>九尾狐在先秦时期曾被视为瑞兽，但随着时间的推移，其形象逐渐妖化，后世文学作品常将其描绘为妖媚动人、善于蛊惑的妖兽。</p>
+                </div>
+            </div>
+
+            <div class="character-detail reverse">
+                <div class="character-image">
+                    <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-05pEJmZvFhHT8nsK-kq2xAwdnRt1gACZRwAAl5riVRcsGrBGO-qhzYE.jpg" alt="应龙.jpg" />
+                </div>
+                <div class="character-info">
+                    <h3>应龙</h3>
+                    <div class="character-meta">
+                        <span><strong>出处:</strong> 《山海经·大荒东经》</span>
+                        <span><strong>特征:</strong> 有翼之龙、行云布雨</span>
+                        <span><strong>能力:</strong> 呼风唤雨、开辟江河</span>
+                        <span><strong>象征:</strong> 皇权、力量、祥瑞</span>
+                    </div>
+                    <p>应龙是古代中国神话传说中一种有翼的龙，又名飞龙，亦作黄龙。相传禹治洪水时有应龙以尾画地成江河使水入海。</p>
+                    <p>根据《山海经》记载，应龙居于天上，曾下凡作为黄帝大将斩杀蚩尤、夸父，曾以尾画地成江，助大禹治水，擒获无支祁。应龙的特征是生有双翼，鳞身脊棘，头大而长，吻尖，鼻、目、耳皆小，眼眶大，眉弓高，牙齿利，前额突起，颈细腹大，尾尖长，四肢强壮，宛如一只生翅的扬子鳄。
+                    </p>
+                    <p>在神话中，应龙是龙进化的最终阶段，具有行云布雨的神通，同时也是力量的象征，历代帝王多以应龙自比，彰显其权威与力量。</p>
+                </div>
+            </div>
+
+            <div class="character-detail">
+                <div class="character-image">
+                    <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-1dpEJnRC7dkK6Mnwe2s8onAojQuqwACbxwAAl5riVQNEOQXQ0VDqDYE.jpg" alt="鲲鹏.jpg" />
+                </div>
+                <div class="character-info">
+                    <h3>鲲鹏</h3>
+                    <div class="character-meta">
+                        <span><strong>出处:</strong> 《庄子·逍遥游》</span>
+                        <span><strong>特征:</strong> 鱼鸟之变、体型巨大</span>
+                        <span><strong>能力:</strong> 变化形态、扶摇万里</span>
+                        <span><strong>象征:</strong> 自由、变化、宏大</span>
+                    </div>
+                    <p>鲲鹏是中国古代神话传说中最大的神兽，最早出现于道家学说《庄子·逍遥游》。书中记载"北冥有鱼，其名为鲲。鲲之大，不知其几千里也；化而为鸟，其名为鹏。鹏之背，不知其几千里也；怒而飞，其翼若垂天之云。"
+                    </p>
+                    <p>鲲鹏具有鱼和鸟两种形态，在水中为鲲，在天上为鹏。其体型巨大无比，当它化为鹏鸟飞向南方大海时，翅膀拍击水面激起三千里的波涛，乘着旋风飞上九万里的高空。</p>
+                    <p>在传统文化中，鲲鹏象征着宏大的志向和自由的灵魂，代表着一种超越凡俗、追求无限的精神境界。后世常用"鲲鹏之志"来形容人的远大抱负。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beasts" class="page">
+        <section class="content-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>山海经神兽志</h2>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-05pEJmZvFhHT8nsK-kq2xAwdnRt1gACZRwAAl5riVRcsGrBGO-qhzYE.jpg" alt="应龙.jpg" />
+                        </div>
+                        <div class="card-content">
+                            
+                            <h3>应龙</h3>
+                            <p>应龙是古代中国神话传说中一种有翼的龙，相传禹治洪水时有应龙以尾画地成江河使水入海。</p>
+                            <a href="#" class="card-link nav-link" data-page="yinglong">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-11pEJpE5Pse6G45NMKTk1uUD0O4TQACdRwAAl5riVSKd24x4yJGXTYE.jpg" alt="朱雀.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>凤凰</h3>
+                            <p>凤凰亦称为朱鸟、丹鸟、火鸟、鹍鸡等，是中国古代传说中的百鸟之王，与龙同为汉族民族图腾。</p>
+                            <a href="#" class="card-link nav-link" data-page="fenghuang">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-1ZpEJnNmhmzOD8xTQyb3cS74IDYawACbhwAAl5riVQJINFW0KrGrzYE.jpg" alt="白虎.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>白虎</h3>
+                            <p>白虎是中国古代神话中的天之四灵之一，源于远古星宿崇拜，是代表少昊与西方七宿的西方之神。</p>
+                            <a href="#" class="card-link nav-link" data-page="baihu">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-1hpEJnUGrdz_MfUfuVZM5F6_r5_lAACcBwAAl5riVTIH8zLz0EFVjYE.jpg" alt="玄武.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>玄武</h3>
+                            <p>玄武是中国古代神话中的天之四灵之一，源于远古星宿崇拜，是代表颛顼与北方七宿的北方之神。</p>
+                            <a href="#" class="card-link nav-link" data-page="xuanwu">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-1lpEJnVkW7zA4Cz-dsxkllmzgPiOgACcRwAAl5riVTThCrpO_BP0zYE.jpg" alt="麒麟.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>麒麟</h3>
+                            <p>麒麟是中国古代神话传说中的神兽，是建马的后代，其祖先为应龙。中国古代用麒麟象征祥瑞。</p>
+                            <a href="#" class="card-link nav-link" data-page="qilin">了解更多 →</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEF-1xpEJo-sxE62ta275rmDLtSFzUkCQACdBwAAl5riVRC9RSOuuZxxzYE.jpg" alt="精卫.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <h3>精卫</h3>
+                            <p>精卫是中国上古神话传说中炎帝的女儿，因在东海溺亡，化为精卫鸟，常衔西山木石填于东海。</p>
+                            <a href="#" class="card-link nav-link" data-page="jingwei">了解更多 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- 关于页面 -->
+    <section id="about" class="page">
+        <section class="content-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>关于《山海经》</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-section">
+                        <h3>《山海经》简介</h3>
+                        <p>《山海经》是中国先秦重要古籍，也是一部富于神话传说的最古老的奇书。该书作者不详，现代学者均认为成书并非一时，作者亦非一人。</p>
+                        <p>《山海经》传世版本共计18卷，包括《山经》5卷，《海经》13卷，各卷著作年代无从定论，其中14卷为战国时作品，4卷为西汉初年作品。山海经内容主要是民间传说中的地理知识，包括山川、道里、民族、物产、药物、祭祀、巫医等。保存了包括夸父逐日、精卫填海、大禹治水等不少脍炙人口的远古神话传说和寓言故事。
+                        </p>
+
+                        <div class="about-features">
+                            <div class="about-feature">
+                                <h4>内容丰富</h4>
+                                <p>记载了550多座山岳、300多条河流、100多种神怪异兽和40多个邦国部族。</p>
+                            </div>
+                            <div class="about-feature">
+                                <h4>文献价值</h4>
+                                <p>对中国古代历史、地理、文化、中外交通、民俗、神话等的研究，均有重要参考价值。</p>
+                            </div>
+                            <div class="about-feature">
+                                <h4>世界之最</h4>
+                                <p>其中的矿物记录，更是世界上最早的有关文献，具有重要的科学史价值。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-section">
+                        <h3>历史背景</h3>
+                        <p>《山海经》的成书年代和作者一直是学术界争论的焦点。传统上认为《山海经》是大禹、伯益所作，但现代学者多认为此书非一人一时之作，而是在较长时期内由多人编纂而成。</p>
+                        <p>从内容来看，《山海经》反映了上古时期人们对自然和社会的认知水平，包含了丰富的神话思维和原始宗教信仰。书中所记载的地理范围之广，内容之奇特，都显示了其独特的文化价值。</p>
+
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="date">先秦时期</div>
+                                    <h4>原始素材形成</h4>
+                                    <p>各地神话传说、地理知识开始以口头或简单文字形式流传</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="date">战国时期</div>
+                                    <h4>初步编纂</h4>
+                                    <p>《山经》部分基本形成，开始系统记录山川地理和物产</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="date">西汉时期</div>
+                                    <h4>最终成书</h4>
+                                    <p>刘向、刘歆父子整理编纂，形成传世版本的《山海经》</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <div class="date">晋代</div>
+                                    <h4>郭璞作注</h4>
+                                    <p>郭璞为《山海经》作注，是现存最早的完整注释版本</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-section">
+                        <h3>学术研究</h3>
+                        <p>《山海经》的研究历来分为多个学派，主要有历史地理学派、神话学派和民俗学派等。不同学者从各自角度对《山海经》进行解读，形成了丰富的研究成果。</p>
+                        <p>近代以来，随着考古学的发展和跨学科研究的深入，《山海经》研究取得了新的突破。学者们开始尝试将书中的记载与考古发现相印证，探讨其反映的历史真实性和文化内涵。</p>
+
+                        <div class="about-features">
+                            <div class="about-feature">
+                                <h4>历史地理研究</h4>
+                                <p>探讨《山海经》中记载的地理位置与现实地理的对应关系</p>
+                            </div>
+                            <div class="about-feature">
+                                <h4>神话学研究</h4>
+                                <p>分析书中的神话体系、神祇形象和神话思维特点</p>
+                            </div>
+                            <div class="about-feature">
+                                <h4>民俗学研究</h4>
+                                <p>研究书中反映的古代民俗、信仰和巫术文化</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-section">
+                        <h3>现代影响</h3>
+                        <p>《山海经》不仅是中国古代文化的重要遗产，也对现代文化产生了深远影响。其丰富的神话素材为文学、艺术、影视创作提供了不竭的灵感源泉。</p>
+                        <p>近年来，随着国潮文化的兴起，《山海经》中的神兽形象频繁出现在各种文创产品、游戏和影视作品中，成为中华文化创意产业的重要IP资源。</p>
+                        <p>同时，《山海经》研究也日益国际化，越来越多的外国学者开始关注这一独特的文化典籍，促进了中华文化的国际传播和交流。</p>
+                    </div>
+
+                    <div class="about-section">
+                        <h3>版本流传</h3>
+                        <p>《山海经》版本复杂，现可见最早版本为晋代郭璞《山海经传》。明清时期出现了多个重要版本，如明代成化年间刻本、清代郝懿行《山海经笺疏》等。</p>
+                        <p>现代整理本以袁珂《山海经校注》最为著名，该书汇集历代研究成果，校勘精审，注释详明，是目前研究《山海经》的重要参考书。</p>
+                        <p>随着数字化技术的发展，《山海经》也有了多种电子版本和数据库，为研究者提供了更加便捷的查阅条件。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>致力于传播中国传统文化，让更多人了解《山海经》这部华夏神话奇书。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">网站首页</a></li>
+                        <li><a href="#" class="nav-link" data-page="beasts">神兽图鉴</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">关于典籍</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <ul>
+                        <li>邮箱：contact@shanhaijing.com</li>
+                        <li>地址：北京市东城区国子监街</li>
+                        <li>电话：010-12345678</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 山海经文化传播中心 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 页面切换功能
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+
+                    // 更新导航激活状态
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // 切换页面显示
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === targetPage) {
+                            page.classList.add('active');
+                        }
+                    });
+
+                    // 滚动到顶部
+                    window.scrollTo(0, 0);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
